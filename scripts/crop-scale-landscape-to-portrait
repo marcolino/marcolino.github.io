@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Crops a landscape video to portrat and scales it (for better and lighter mobile view)
+
+in="${1:-Portovenere.mkv}"
+out="${2:-Portovenere-mobile.mkv}"
+out_ratio="${3:-123/240}"
+out_scale="${4:--2:400}"
+seconds="${5:-1000000}"
+
+ffmpeg -i "$in" -vf "crop=in_h*${out_ratio}:in_h,scale=${out_scale}" -t "$seconds" -y -v error "$out"
+totem "$out"

@@ -1,0 +1,12 @@
+ffmpeg -i 1.mkv -i 2.mkv -f lavfi -i color=black -filter_complex "\
+color=black:1920x984:d=61.733[base]; \
+ [0:v]setpts=PTS-STARTPTS[v0]; \
+ [1:v]format=yuva420p,fade=in:st=0:d=1:alpha=1, \
+      setpts=PTS-STARTPTS+((49.82)/TB)[v1]; \
+ [base][v0]overlay[tmp]; \
+ [tmp][v1]overlay,format=yuv420p[fv]; \
+ [0:a][1:a]acrossfade=d=1[fa] \
+" \
+-map [fv] -map [fa] \
+-hide_banner -loglevel warning -y \
+3.mkv

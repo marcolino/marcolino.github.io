@@ -1,0 +1,1 @@
+ffmpeg -i 1.mkv -vf "fade=t=in:st=0:d=2" -c:a copy -hide_banner -loglevel warning -y 2.mkv

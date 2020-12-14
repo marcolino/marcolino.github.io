@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Extract one frame from video and color balance (to cancel bluish hue)
+
+in="Portovenere.mkv"
+out="first-frame.png"
+frame_number="10"
+gs="-1"
+gm="-1"
+gh="-1"
+
+ffmpeg -i "$in" -vf 'select=eq(n\,80)' -vframes "$frame_number" -vf "colorbalance=gs=${gs}:gm=${gm}:gh=${gh}" -y "$out"
+qiv "$out"
