@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Encode a video for the web
+
+in="${1:-public/assets/videos/tmp/PV-noaudio-nologo-cut-fadeout.mkv}"
+out_webm="${2:-public/assets/videos/output.webm}"
+out_mp4="${3:-public/assets/videos/output.mp4}"
+size="${4:-hd720}" # hd1080
+bitrate="${5:-1000k}"
+
+ffmpeg -i "$in" -c:v libvpx-vp9 -an -s "$size" -b:v "$bitrate" -y -v warning "$out_webm"
+ffmpeg -i "$in" -c:v libx264 -an -s "$size" -b:v "$bitrate" -y -v warning "$out_mp4"

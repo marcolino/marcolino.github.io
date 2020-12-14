@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Crop a video, cutting out the bottom and right edges, keeping aspect ratio
+
+in="${1}"
+out="${2}"
+width_to_cut_right="${3:-327}"
+
+ffmpeg -i "$in" -filter:v "crop=in_w-${width_to_cut_right}:in_h-((in_h/in_w)*${width_to_cut_right}):0:0" -v warning "$out"
+#totem "$out"
